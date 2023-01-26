@@ -3,8 +3,6 @@ import { v4 as uuid } from 'uuid';
 import { getDatabase } from '../db/db.js';
 import { STATUS_CODE } from '../statusCodes.js';
 
-let db = getDatabase();
-
 async function signUp(req, res){
 
     const newUser = res.locals.user;
@@ -13,7 +11,7 @@ async function signUp(req, res){
 
     try{
 
-        await db.collection('users').insertOne(
+        await getDatabase().collection('users').insertOne(
             {...newUser, password: cryptedPassword}
         )
 
@@ -34,7 +32,7 @@ async function signIn(req, res){
 
     try{
 
-        await db.collection('sessions').insertOne({
+        await getDatabase().collection('sessions').insertOne({
             userId: user._id,
             token: token
         })

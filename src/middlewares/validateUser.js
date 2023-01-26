@@ -3,8 +3,6 @@ import { STATUS_CODE } from "../statusCodes.js";
 import { getDatabase } from "../db/db.js";
 import bcrypt from 'bcrypt';
 
-let db = getDatabase();
-
 async function signUpBodyValidation(req, res, next){
 
     const user = req.body;
@@ -18,7 +16,7 @@ async function signUpBodyValidation(req, res, next){
         return res.sendStatus(STATUS_CODE.BAD_REQUEST);
     }
 
-    const userExists = await db.collection('users').findOne({
+    const userExists = await getDatabase().collection('users').findOne({
         email: user.email
     })
 
@@ -38,7 +36,7 @@ async function signInBodyValidation(req, res, next){
 
     try{
 
-        const user = await db.collection('users').findOne({
+        const user = await getDatabase().collection('users').findOne({
             email: email
         });
 
