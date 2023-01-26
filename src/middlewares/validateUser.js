@@ -40,9 +40,13 @@ async function signInBodyValidation(req, res, next){
             email: email
         });
 
+        if(!user){
+            return res.sendStatus(STATUS_CODE.UNAUTHORIZED);
+        }
+
         const isPasswordCorrect = bcrypt.compareSync(password, user.password);
 
-        if(!user || !isPasswordCorrect){
+        if(!isPasswordCorrect){
             return res.sendStatus(STATUS_CODE.UNAUTHORIZED);
         }
 

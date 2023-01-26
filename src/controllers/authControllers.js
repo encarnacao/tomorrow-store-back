@@ -7,7 +7,7 @@ async function signUp(req, res){
 
     const newUser = res.locals.user;
 
-    const cryptedPassword = bcrypt.hashSync(password, 10);
+    const cryptedPassword = bcrypt.hashSync(newUser.password, 10);
 
     try{
 
@@ -42,7 +42,7 @@ async function signIn(req, res){
             user
         }
 
-        return res.sendStatus(returnData);
+        return res.send(returnData);
 
     } catch (err) {
         console.log(err);
