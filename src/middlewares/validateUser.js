@@ -1,6 +1,6 @@
-import { signUpSchema } from "../schemas/authSchemas";
-import { STATUS_CODE } from "../statusCodes";
-import { getDatabase } from "../db/db";
+import { signUpSchema } from "../schemas/authSchemas.js";
+import { STATUS_CODE } from "../statusCodes.js";
+import { getDatabase } from "../db/db.js";
 import bcrypt from 'bcrypt';
 
 let db = getDatabase();
