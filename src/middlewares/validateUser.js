@@ -3,6 +3,47 @@ import { STATUS_CODE } from "../statusCodes.js";
 import { getDatabase } from "../db/db.js";
 import bcrypt from 'bcrypt';
 
+async function authValidation(req, res, next){
+
+    const token = req.headers.authorization?.replace('Bearer ', '');
+
+    if(!token){
+        return res.sendStatus(STATUS_CODE.BAD_REQUEST);
+    }
+
+    try{
+        //Check if session exists
+        const session = await getDatabase.collection('sessions').findOne({
+            token: token
+        });
+
+        if(!session){
+            return res.sendStatus(STATUS_CODE.UNAUTHORIZED);
+        }
+
+        //Find the user
+        const user = await getDatabase.collection('users').findOne({
+            _id: session.userId
+        })
+
+        console.log(session);
+        console.log(user);
+
+        res.locals.user = user;
+
+        res.locals.session = session;
+
+        next();
+
+    } catch(err) {
+        
+        console.log(err);
+        return res.sendStatus(STATUS_CODE.SERVER_ERROR);
+
+    }
+
+}
+
 async function signUpBodyValidation(req, res, next){
 
     const user = req.body;
@@ -61,4 +102,4 @@ async function signInBodyValidation(req, res, next){
 
 }
 
-export { signUpBodyValidation, signInBodyValidation }
+export { signUpBodyValidation, signInBodyValidation, authValidation }
