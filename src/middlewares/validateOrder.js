@@ -3,25 +3,17 @@ import { orderSchema } from "../schemas/orderSchema.js";
 
 async function validateOrder(req, res, next) {
     
-    const {orderId, date, paymethod, itemsList} = req.body;
-
+    const {date, paymethod, itemsList} = req.body;
+    console.log(itemsList[0].name);
     const isOrderValid = orderSchema.validate({
-        orderId,
         date,
         paymethod,
         itemsList
     });
 
     if(isOrderValid.error){
-        return res.sendStatus(STATUS_CODE.BAD_REQUEST);
-    }
-
-    if( 
-        paymethod !== 'debit' && 
-        paymethod !== 'credit' && 
-        paymethod !== 'crypto'
-    ){
-        return res.sendStatus(STATUS_CODE.BAD_REQUEST);
+        
+        return res.status(STATUS_CODE.BAD_REQUEST).send(isOrderValid.error.details[0].message);
     }
 
     next();
