@@ -27,6 +27,7 @@ async function signUp(req, res){
 async function signIn(req, res){
 
     const user = res.locals.user;
+    delete user.password;
 
     const token = uuid();
 
