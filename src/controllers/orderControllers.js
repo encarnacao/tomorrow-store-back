@@ -23,8 +23,8 @@ async function postOrder(req, res) {
 			orderId: orderId.value.seq,
 			userId: session.userId,
 			date: date,
-			paymethod: paymethod,
-			totalprice: totalprice,
+			payMethod: paymethod,
+			totalPrice: totalprice,
 			itemsList: itemsList,
 		});
 		return res.sendStatus(STATUS_CODE.CREATED);
