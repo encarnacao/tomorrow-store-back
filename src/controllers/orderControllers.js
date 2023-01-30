@@ -2,7 +2,7 @@ import { getDatabase } from "../db/db.js";
 import { STATUS_CODE } from "../statusCodes.js";
 
 async function postOrder(req, res) {
-	const { date, paymethod, itemsList, totalprice } = req.body;
+	const { date, payMethod, itemsList, totalPrice } = req.body;
 
 	const { session } = res.locals;
 
