@@ -2,7 +2,7 @@ import { getDatabase } from "../db/db.js";
 import { STATUS_CODE } from "../statusCodes.js";
 
 async function postOrder(req, res) {
-	const { date, paymethod, itemsList } = req.body;
+	const { date, paymethod, itemsList, totalprice } = req.body;
 
 	const { session } = res.locals;
 
@@ -24,7 +24,7 @@ async function postOrder(req, res) {
 			userId: session.userId,
 			date: date,
 			paymethod: paymethod,
-			//totalprice: totalprice, (coming from frontend or backend ??)
+			totalprice: totalprice,
 			itemsList: itemsList,
 		});
 		return res.sendStatus(STATUS_CODE.CREATED);

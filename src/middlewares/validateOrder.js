@@ -3,11 +3,12 @@ import { orderSchema } from "../schemas/orderSchema.js";
 
 async function validateOrder(req, res, next) {
     
-    const {date, paymethod, itemsList} = req.body;
+    const {date, paymethod, itemsList, totalprice} = req.body;
     console.log(itemsList[0].name);
     const isOrderValid = orderSchema.validate({
         date,
         paymethod,
+        totalprice,
         itemsList
     });
 
@@ -21,26 +22,3 @@ async function validateOrder(req, res, next) {
 }
 
 export { validateOrder }
-
-// axios.post('URL POST ORDER', postDataBody, headers token bearer);
-
-// onde 
-
-// postDataBody = {
-//     userId: userId
-//     orderId: orderId,
-//     date: (DD/MM/AA: hh/mm),
-//     payment-method: 'debitcard', 'creditcard' or 'cripto' // (examples)
-//     itemsList[
-//         {   
-//             name: Fly
-//             price: 5000
-//             image: image
-//         },
-//         {   
-//             name: telekinesis
-//             price: 15000
-//             image: image
-//         }
-//     ]
-// }
